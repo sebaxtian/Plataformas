@@ -38,7 +38,7 @@ Vagrant.configure(2) do |config|
       node.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1, "--name", "WebServer1"]
       end
-      node.vm.provision "shell", path: "webserver1.sh"
+      node.vm.provision "shell", path: "webserver.sh" args: "WebService1 10.11.12.101"
   end
   
   config.vm.define :WebServer2 do |node|
@@ -47,7 +47,7 @@ Vagrant.configure(2) do |config|
       node.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1, "--name", "WebServer2"]
       end
-      node.vm.provision "shell", path: "webserver2.sh"
+      node.vm.provision "shell", path: "webserver.sh" args: "WebService2 10.11.12.102"
   end
   
   # Disable automatic box update checking. If you disable this, then
