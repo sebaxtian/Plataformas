@@ -9,7 +9,9 @@ Vagrant.configure(2) do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
-
+  #
+  # vagrant box base package.box
+  #
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   #config.vm.box = "hashicorp/precise64"
@@ -38,7 +40,7 @@ Vagrant.configure(2) do |config|
       node.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1, "--name", "WebServer1"]
       end
-      node.vm.provision "shell", path: "webserver.sh" args: "WebService1 10.11.12.101"
+      node.vm.provision "shell", path: "webserver.sh", args: "WebService1 10.11.12.101"
   end
   
   config.vm.define :WebServer2 do |node|
@@ -47,7 +49,16 @@ Vagrant.configure(2) do |config|
       node.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1, "--name", "WebServer2"]
       end
-      node.vm.provision "shell", path: "webserver.sh" args: "WebService2 10.11.12.102"
+      node.vm.provision "shell", path: "webserver.sh", args: "WebService2 10.11.12.102"
+  end
+
+  config.vm.define :Atacante do |node|
+      node.vm.box = "base"
+      node.vm.network :private_network, ip: "10.11.12.103", netmask: "255.255.255.0"
+      node.vm.provider :virtualbox do |vb|
+          vb.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1, "--name", "Atacante"]
+      end
+      node.vm.provision "shell", path: "atacante.sh"
   end
   
   # Disable automatic box update checking. If you disable this, then
