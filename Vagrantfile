@@ -24,7 +24,7 @@ Vagrant.configure(2) do |config|
   #end
   
   config.vm.define :HAProxy do |node|
-      node.vm.box = "hashicorp/precise64"
+      node.vm.box = "base"
       node.vm.network :private_network, ip: "10.11.12.100", netmask: "255.255.255.0"
       node.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1, "--name", "HAProxy"]
@@ -33,7 +33,7 @@ Vagrant.configure(2) do |config|
   end
   
   config.vm.define :WebServer1 do |node|
-      node.vm.box = "hashicorp/precise64"
+      node.vm.box = "base"
       node.vm.network :private_network, ip: "10.11.12.101", netmask: "255.255.255.0"
       node.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1, "--name", "WebServer1"]
@@ -42,12 +42,12 @@ Vagrant.configure(2) do |config|
   end
   
   config.vm.define :WebServer2 do |node|
-      node.vm.box = "hashicorp/precise64"
+      node.vm.box = "base"
       node.vm.network :private_network, ip: "10.11.12.102", netmask: "255.255.255.0"
       node.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1, "--name", "WebServer2"]
       end
-      node.vm.provision "shell", path: "webserver1.sh"
+      node.vm.provision "shell", path: "webserver2.sh"
   end
   
   # Disable automatic box update checking. If you disable this, then
