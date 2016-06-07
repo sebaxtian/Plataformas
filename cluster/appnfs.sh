@@ -55,6 +55,9 @@ then
 	sudo mkdir /$NOMBREDIR
 	sudo chown nobody:nogroup /$NOMBREDIR
 	sudo chmod 1777 /$NOMBREDIR
+	sudo touch /$NOMBREDIR/machinefile
+	sudo echo "10.10.10.3" >> /$NOMBREDIR/machinefile
+	sudo echo "10.10.10.4" >> /$NOMBREDIR/machinefile
 	# Se notifica a NFS cuales son los directorios compartidos
 	echo "/$NOMBREDIR *(rw,sync,no_subtree_check)" >> /etc/exports
 	sudo exportfs -a
